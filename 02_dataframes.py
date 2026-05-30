@@ -198,5 +198,5 @@ def main(session: Session) -> None:
 # Local execution entry point
 # ─────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    with Session.builder.config("connection_name", "default").getOrCreate() as session:
+    with Session.builder.config("connection_name", "snowflake-enabled-trial").getOrCreate() as session:
         main(session)
