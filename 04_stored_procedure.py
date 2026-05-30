@@ -154,6 +154,11 @@ def main(session: Session) -> str:
     print("PART 4: Stored Procedures - Full ETL Pipeline")
     print("=" * 60)
 
+    # Set context for SP registration
+    session.sql("USE WAREHOUSE SHOPSTREAM_WH").collect()
+    session.sql("USE DATABASE SHOPSTREAM").collect()
+    session.sql("USE SCHEMA RAW").collect()
+
     # Run pipeline 1: Monthly Revenue Summary
     print("\n--- Running: Monthly Revenue Summary ---")
     result1 = build_monthly_revenue_summary(session)
@@ -219,6 +224,6 @@ def main(session: Session) -> str:
 # Local execution - this block does NOT run when deployed as SP
 # ─────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    with Session.builder.config("connection_name", "default").getOrCreate() as session:
+    with Session.builder.config("connection_name", "snowflake-enabled-trial").getOrCreate() as session:
         result = main(session)
         print(f"\nFinal result: {result}")
