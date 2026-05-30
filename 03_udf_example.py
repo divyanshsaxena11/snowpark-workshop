@@ -26,6 +26,11 @@ def main(session: Session) -> None:
     print("PART 3: User-Defined Functions (UDFs)")
     print("=" * 60)
 
+    # Set context for UDF registration
+    session.sql("USE WAREHOUSE SHOPSTREAM_WH").collect()
+    session.sql("USE DATABASE SHOPSTREAM").collect()
+    session.sql("USE SCHEMA RAW").collect()
+
     # ─────────────────────────────────────────────────────────
     # 1. SCALAR UDF - Discount Tier Calculator
     # ─────────────────────────────────────────────────────────
@@ -189,5 +194,5 @@ def main(session: Session) -> None:
 # Local execution entry point
 # ─────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    with Session.builder.config("connection_name", "default").getOrCreate() as session:
+    with Session.builder.config("connection_name", "snowflake-enabled-trial").getOrCreate() as session:
         main(session)
